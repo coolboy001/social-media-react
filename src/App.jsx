@@ -8,18 +8,16 @@ import Sidebar from "./components/Sidebar";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import CreatePost from "./components/CreatePost";
-import Post from "./components/Post";
 import PostList from "./components/PostList";
 
 function App() {
   const [selectedTab, setSelectedTab] = useState("Home");
   return (
     <div className='app-container'>
-      <Sidebar selectedTab={selectedTab} />
+      <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       <div className='content'>
         <Header />
         {selectedTab === "Home" ? <PostList /> : <CreatePost />}
-        <PostList />
         <Footer />
       </div>
     </div>
