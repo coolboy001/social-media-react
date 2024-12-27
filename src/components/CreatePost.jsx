@@ -8,7 +8,7 @@ const CreatePost = () => {
   const userIdElement = useRef();
   const postTitleElm = useRef();
   const postBodyElm = useRef();
-  const reactionsElm = useRef();
+  const viewsElm = useRef();
   const tagsElm = useRef();
 
   const handleSubmit = (event) => {
@@ -17,13 +17,13 @@ const CreatePost = () => {
       userIdElement.current.value,
       postTitleElm.current.value,
       postBodyElm.current.value,
-      reactionsElm.current.value,
+      viewsElm.current.value,
       tagsElm.current.value.split(" ")
     );
     userIdElement.current.value = "";
     postTitleElm.current.value = "";
     postBodyElm.current.value = "";
-    reactionsElm.current.value = "";
+    viewsElm.current.value = "";
     tagsElm.current.value = "";
   };
   return (
@@ -64,14 +64,14 @@ const CreatePost = () => {
         />
       </div>
       <div className='mb-3'>
-        <label htmlFor='reactions' className='form-label'>
+        <label htmlFor='views' className='form-label'>
           Number of Reactions
         </label>
         <input
           type='text'
-          ref={reactionsElm}
+          ref={viewsElm}
           className='form-control'
-          id='reactions'
+          id='views'
           placeholder='How many pepole reacted to this post'
         />
       </div>
