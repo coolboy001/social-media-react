@@ -5,12 +5,12 @@ import { PostListContext } from "../store/post-list-store";
 const Post = ({ post }) => {
   const { deletePost } = useContext(PostListContext);
   return (
-    <div key={post.id} className='card post-card'>
+    <div key={` posts ${post.id}`} className='card post-card'>
       <div className='card-body'>
         <h5 className='card-title'>
           {post.title}
           <span
-            class='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'
+            className='position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger'
             onClick={() => deletePost(post.id)}
           >
             <MdDelete />
@@ -18,7 +18,9 @@ const Post = ({ post }) => {
         </h5>
         <p className='card-text'>{post.body}</p>
         {post.tags.map((tag) => (
-          <span class='badge text-bg-primary hashtag'>{tag}</span>
+          <span key={tag} className='badge text-bg-primary hashtag'>
+            {tag}
+          </span>
         ))}
         <div className='alert alert-success reactions' role='alert'>
           This Post has been viewed by {post.views} people.

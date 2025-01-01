@@ -1,29 +1,42 @@
 import { useContext } from "react";
 import { useRef } from "react";
 import { PostListContext } from "../store/post-list-store";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const { addPost } = useContext(PostListContext);
+  const navigate = useNavigate();
 
   const userIdElement = useRef();
   const postTitleElm = useRef();
   const postBodyElm = useRef();
-  const viewsElm = useRef();
+  const reactionElm = useRef();
   const tagsElm = useRef();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addPost(
-      userIdElement.current.value,
-      postTitleElm.current.value,
-      postBodyElm.current.value,
-      viewsElm.current.value,
-      tagsElm.current.value.split(" ")
-    );
+    fetch("https://dummyjson.com/posts/add", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: postTitleElm.current.value,
+        body: postBodyElm.current.value,
+        reactions: reactionElm.current.value,
+        userId: userIdElement.current.value,
+        tags: tagsElm.current.value.split(" "),
+        /* other post data */
+      }),
+    })
+      .then((res) => res.json())
+      .then((post) => {
+        addPost(post);
+        navigate("/");
+      });
+
     userIdElement.current.value = "";
     postTitleElm.current.value = "";
     postBodyElm.current.value = "";
-    viewsElm.current.value = "";
+    reactionElm.current.value = "";
     tagsElm.current.value = "";
   };
   return (
@@ -69,7 +82,7 @@ const CreatePost = () => {
         </label>
         <input
           type='text'
-          ref={viewsElm}
+          ref={reactionElm}
           className='form-control'
           id='views'
           placeholder='How many pepole reacted to this post'
